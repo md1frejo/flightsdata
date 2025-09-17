@@ -27,7 +27,7 @@
 <template>
 
   <Header />
-  <Stats :airline=airline />
+  <Stats :airline=airline :sourcecity=sourcecity :destcity=destcity :stops=stops />
   
   <div>
     <Activity class="w-10 h-10 text-blue-200" />
