@@ -246,7 +246,10 @@ export default {
 	      },
 	  },
 	  fontSize: {
-	      'bo1': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'hed1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'air1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+
+	      'bo1': ['15pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 
 	      'c1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'ma1': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
