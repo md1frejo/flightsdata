@@ -1,13 +1,16 @@
 <script setup>
+ 
  import { Plane} from "lucide-vue-next";
+ import {clayout} from '../config/layout.js'
+ 
 </script>
 
 <template>
   <div>
-    <div class="bg-gradient-to-r from-deepskyblue-900 to-deepskyblue-100 p-6 rounded-2xl flex items-center space-x-4">
+    <div :class="['bg-gradient-to-b',clayout.topgf,clayout.topgt,'p-6 rounded-2xl flex items-center space-x-4 justify-center']">
       <Plane class="w-20 h-20 text-greyg-100" />
-      <p class="text-8xl text-SteelBlueg-400">flightsdata</p>
-      <p class="text-4xl text-limegrad-200">stats and prediction</p>
+      <p class="text-8xl text-SteelBlueg-400 text-center">flightsdata</p>
+      <p class="text-4xl text-redg-200 text-center">stats and prediction</p>
     </div>
   </div>
 </template>
