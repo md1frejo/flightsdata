@@ -12,6 +12,16 @@ defmodule Analyze do
       :world
 
   """
+
+  def getkeys(fname) do
+
+    {:ok, cont} = File.read(fname)
+    {:ok, d1} = Jason.decode(cont)
+    {:ok, data} = Jason.decode(d1)
+    hd(data) |> Map.keys()
+
+  end
+  
   def process(fname) do
 
     {:ok, cont} = File.read(fname)
@@ -37,6 +47,12 @@ defmodule Analyze do
     stops=Enum.reduce(data,%{},fn k,acc -> Map.update(acc,k["stops"],1,fn x->x+1 end) end)
     {:ok,stp}=Jason.encode(stops,pretty: true)
     File.write!("../src/stops.json",stp)
+
+    tp=data |> Enum.group_by(fn x -> x["airline"] end)  # group by airline
+    |> Enum.map(fn {airline, flights} -> tp = Enum.reduce(flights, 0, fn f, acc -> acc + f["price"] end)
+      {airline, tp} end) |> Enum.into(%{})
+    
+    File.write!("../src/tp.json",Jason.encode!(tp))
     
   end
 end

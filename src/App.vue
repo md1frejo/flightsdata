@@ -7,10 +7,11 @@
 </script>
 
 <template>
-  <Topbar />
-  <Main />
-  <Bottom />
-  
+  <div class="max-w-[85%] mx-auto">
+    <Topbar />
+    <Main />
+    <Bottom />
+  </div>
 </template>
 
 <style scoped></style>
