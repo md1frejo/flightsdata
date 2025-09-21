@@ -4,8 +4,8 @@
  import Header from './Header.vue'
  import Stats from './Stats.vue'
  
- import { Activity } from "lucide-vue-next";
- import fdata from '../../src/flightsdata.json'
+ import { Activity } from "lucide-vue-next"
+ import fdata from "../../src/flightsdata.json"
 
  import airline from '../airline.json'
  import sourcecity from '../sourcecity.json'
@@ -29,10 +29,18 @@
  const s4=st.flatMap(x => x[1]).reduce((acc, val) => acc + val, 0)
  const s5=su.flatMap(x => x[1]).reduce((acc, val) => acc + val, 0)
  const ts=sp.flatMap(x => x[1]).reduce((acc, val) => acc + val, 0)
- 
- const fdatas = JSON.parse(fdata).slice(0, 10)
 
- console.log(sp)
+ function rselect(arr,count) {
+   const step = arr.length/count;   // spacing between picks
+   return Array.from({ length: count }, (_, i) => {
+     const idx = Math.floor(i * step);
+     return arr[idx];
+   });
+ }
+ 
+ const fdatas = rselect(JSON.parse(fdata),1000)
+
+ //console.log(Object.entries(fdatas))
  
 </script>
 
@@ -41,7 +49,7 @@
   <Header />
   
   <Stats :airline=airline :sourcecity=sourcecity :destcity=destcity
-	 :stops=stops :duration=duration
+	 :stops=stops :duration=duration :fdatas=fdatas
 	 :s1=s1 :s2=s2 :s3=s3 :s4=s4 :s5=s5 :ts=ts />
   
   <div>

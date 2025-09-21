@@ -1,21 +1,23 @@
 <script setup>
+ 
+ import {clayout} from '../config/layout.js'
+ import { ref, onMounted } from 'vue'
 
  import {
    Chart as ChartJS,
    Title, Tooltip, Legend,
-   BarElement, CategoryScale, LinearScale,
- } from 'chart.js'
+   PointElement,
+   LinearScale, CategoryScale, // <-- both scales
+   ScatterController
+ } from "chart.js"
  
- 
- import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
- import {clayout} from '../config/layout.js'
- 
- const { airline, sourcecity, destcity, stops, duration } =  defineProps({
+ const props = defineProps({
    airline: Object,
    sourcecity: Object,
    destcity: Object,
    stops: Object,
    duration: Object,
+   fdatas: Array,  // expect [{airline, price, duration}, ...]
    ts: Number,
    s1: Number,
    s2: Number,
@@ -23,11 +25,49 @@
    s4: Number,
  })
 
- const asum = Object.values(airline).reduce((acc,val) => acc+val,0)
- const ssum = Object.values(sourcecity).reduce((acc,val) => acc+val,0)
- const dsum = Object.values(destcity).reduce((acc,val) => acc+val,0)
- const tsum = Object.values(stops).reduce((acc,val) => acc+val,0)
- const csum = Object.values(duration).reduce((acc,val) => acc+val,0)
+ const canvasRef = ref(null)
+
+ onMounted(() => {
+
+   ChartJS.register(
+     Title, Tooltip, Legend,
+     PointElement,
+     ScatterController,
+     LinearScale, CategoryScale
+   )
+   
+   new ChartJS(canvasRef.value.getContext('2d'), {
+     type: 'scatter',
+     data: {
+       datasets: [{
+         label: 'Airline vs Price',
+         data: props.fdatas.map(v => ({
+           x: v.duration,
+           y: v.price,
+           airline: v.airline
+         })),
+         backgroundColor: 'rgba(54,162,235,0.8)',
+         pointRadius: 6,
+         showLine: false,   // keep it as dots, not connected
+	 tension: 0.3
+       }]
+     },
+     options: {
+       plugins: {
+         tooltip: {
+           callbacks: {
+             label: ctx =>
+               `${ctx.raw.airline}: ₹${ctx.raw.y} (duration ${ctx.raw.x}h)`
+           }
+         }
+       },
+       scales: {
+         x: { type: 'linear', title: { display: true, text: "Duration (hours)" } },
+         y: { title: { display: true, text: "Price (₹)" } }
+       }
+     }
+   })
+ })
  
 </script>
 
@@ -116,9 +156,14 @@
   </div>
 
   <div class="bg-blue-100 ">
-    <p class="text-4xl">more info</p>
+    <p class="text-4xl">average price vs duration</p>
   </div>
-  
+
+  <!-- <p>graphs</p>
+       <Bar :data="chartEx" :options="chartOptions" /> -->
+   <div>
+    <canvas ref="canvasRef" class="w-full h-96"></canvas>
+  </div>
 </template>
 
 <style scoped>
