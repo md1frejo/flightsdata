@@ -14,7 +14,7 @@
  import duration from '../duration.json'
  import tp from '../tp.json'
 
- import { ref } from 'vue'
+ import { ref,computed } from 'vue'
  
  const sa=Object.entries(airline)
  const ss=Object.entries(sourcecity)
@@ -39,8 +39,18 @@
  }
  
  const fdatas = rselect(JSON.parse(fdata),1000)
+ const fdatas2 = rselect(JSON.parse(fdata),100)
+ 
+ console.log(Object.entries(fdatas))
 
- //console.log(Object.entries(fdatas))
+ // group flights into chunks of 10
+ const chunkedFlights = computed(() => {
+   const chunks = []
+   for (let i = 0; i < fdatas2.length; i += 10) {
+     chunks.push(fdatas2.slice(i, i + 10))
+   }
+   return chunks
+ })
  
 </script>
 
@@ -57,13 +67,16 @@
     <p class="text-8xl">Main</p>
   </div>
    <div>
-    <h2>iteration:</h2>
-    <ul>
-      <li v-for="(r,i) in fdatas" :key="i">
-	{{ r.airline }} and {{ r.source_city }} 
-      </li>
-    </ul>
-  </div>
+     <h2>iteration:</h2>
+
+     <!-- loop through groups -->
+     <div v-for="(group, gi) in chunkedFlights" :key="gi" class="flex flex-row gap-4 mb-4">
+       <div v-for="(r, i) in group" :key="i" class="flex items-center space-x-2 p-2 border rounded">
+	 {{ gi * 10 + i }} : {{ r.airline }} → {{ r.source_city }} → {{ r.destination_city }} loop
+       </div>
+     </div>
+   </div>
+   
 </template>
 
 <style scoped>

@@ -1,5 +1,6 @@
 <script setup>
  
+ import { VectorSquare } from "lucide-vue-next" 
  import {clayout} from '../config/layout.js'
  import { ref, onMounted } from 'vue'
 
@@ -23,10 +24,12 @@
    s2: Number,
    s3: Number,
    s4: Number,
+   s5: Number,
  })
 
  const canvasRef = ref(null)
-
+ const canvasRef2 = ref(null) 
+ 
  onMounted(() => {
 
    ChartJS.register(
@@ -40,16 +43,12 @@
      type: 'scatter',
      data: {
        datasets: [{
-         label: 'Airline vs Price',
-         data: props.fdatas.map(v => ({
-           x: v.duration,
-           y: v.price,
-           airline: v.airline
-         })),
-         backgroundColor: 'rgba(54,162,235,0.8)',
-         pointRadius: 6,
+         label: 'duration vs price',
+         data: props.fdatas.map(v => ({x: v.duration,y: v.price,airline: v.airline})),
+         backgroundColor: '#528ab9',
+         pointRadius: 5,
          showLine: false,   // keep it as dots, not connected
-	 tension: 0.3
+	 tension: 0.8
        }]
      },
      options: {
@@ -67,6 +66,35 @@
        }
      }
    })
+
+   new ChartJS(canvasRef2.value.getContext('2d'), {
+     type: 'scatter',
+     data: {
+       datasets: [{
+         label: 'stops vs duration',
+         data: props.fdatas.map(v => ({x: v.stops, y: v.price, airline: v.airline})),
+         backgroundColor: '#00bfff',
+         pointRadius: 4,
+         showLine: false,   // keep it as dots, not connected
+	 tension: 0.8
+       }]
+     },
+     options: {
+       plugins: {
+         tooltip: {
+           callbacks: {
+             label: ctx =>
+               `${ctx.raw.airline}: ₹${ctx.raw.y} (stops ${ctx.raw.x}h)`
+           }
+         }
+       },
+       scales: {
+         x: { type: 'category', title: { display: true, text: "Stops (hours)" } },
+         y: { title: { display: true, text: "Price (₹)" } }
+       }
+     }
+   })
+   
  })
  
 </script>
@@ -159,11 +187,22 @@
     <p class="text-4xl">average price vs duration</p>
   </div>
 
-  <!-- <p>graphs</p>
-       <Bar :data="chartEx" :options="chartOptions" /> -->
-   <div>
+  <div class="max-w-[70%] mx-auto">>
     <canvas ref="canvasRef" class="w-full h-96"></canvas>
+    <div class="flex items-center space-x-2 mt-4">
+      <VectorSquare class="w-10 h-10 text-blue-200" />
+      <p class="text-4x">flight time vs price</p>
+    </div>
   </div>
+
+  <div class="max-w-[70%] mx-auto">>
+    <canvas ref="canvasRef2" class="w-full h-96"></canvas>
+    <div class="flex items-center space-x-2 mt-4">
+      <VectorSquare class="w-10 h-10 text-blue-200" />
+      <p class="text-4x">flight stops vs price</p>
+    </div>
+  </div>
+
 </template>
 
 <style scoped>
