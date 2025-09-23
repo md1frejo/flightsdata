@@ -301,6 +301,8 @@ export default {
 
 	      'c1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'ma1': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma2': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma3': ['15pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'gp1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top2': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],

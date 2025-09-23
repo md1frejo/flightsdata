@@ -40,9 +40,12 @@
  
  const fdatas = rselect(JSON.parse(fdata),1000)
  const fdatas2 = rselect(JSON.parse(fdata),100)
- 
- console.log(Object.entries(fdatas))
+ const fdatao = Object.entries(fdatas)
+ const maxp = fdatao.reduce((max,[_,f])=>f.price > max.price ? f : max, {price: -Infinity})
+ const maxd = fdatao.reduce((max,[_,f])=>f.duration > max.duration ? f : max, {duration: -Infinity})
 
+ console.log(fdatao)
+ 
  // group flights into chunks of 10
  const chunkedFlights = computed(() => {
    const chunks = []
@@ -61,22 +64,27 @@
   <Stats :airline=airline :sourcecity=sourcecity :destcity=destcity
 	 :stops=stops :duration=duration :fdatas=fdatas
 	 :s1=s1 :s2=s2 :s3=s3 :s4=s4 :s5=s5 :ts=ts />
+  <Activity class="w-10 h-10 text-blue-200" />
+  <p class="text-4xl">Main</p>
   
-  <div>
-    <Activity class="w-10 h-10 text-blue-200" />
-    <p class="text-8xl">Main</p>
+  <div class="bg-blue-100">
+    <p class="text-ma2">the highest price and the longest duration</p>
+    <div class="flex justify-center items-start space-x-2 mt-4">
+      <p class="text-ma3 mb-2">this is the most expensive flight</p>
+      <ul class="flex-space-x-4">
+        <li v-for="(v,k) in maxp" :key="`p-${k}`">
+          test {{ v }}
+        </li>
+      </ul>
+      <p class="text-2xl mb-2">this is the longest flight</p>
+      <ul class="flex-space-x-4">
+        <li v-for="(v,k) in maxd" :key="`d-${k}`">
+          test {{ v }}
+        </li>
+      </ul>
+    </div>
   </div>
-   <div>
-     <h2>iteration:</h2>
-
-     <!-- loop through groups -->
-     <div v-for="(group, gi) in chunkedFlights" :key="gi" class="flex flex-row gap-4 mb-4">
-       <div v-for="(r, i) in group" :key="i" class="flex items-center space-x-2 p-2 border rounded">
-	 {{ gi * 10 + i }} : {{ r.airline }} → {{ r.source_city }} → {{ r.destination_city }} loop
-       </div>
-     </div>
-   </div>
-   
+  
 </template>
 
 <style scoped>
