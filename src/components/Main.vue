@@ -1,10 +1,11 @@
 <script setup>
 
-
+ import {clayout} from '../config/layout.js'
+ 
  import Header from './Header.vue'
  import Stats from './Stats.vue'
  
- import { Activity } from "lucide-vue-next"
+ import { Activity,ShieldQuestionMark } from "lucide-vue-next"
  import fdata from "../../src/flightsdata.json"
 
  import airline from '../airline.json'
@@ -41,9 +42,13 @@
  const fdatas = rselect(JSON.parse(fdata),1000)
  const fdatas2 = rselect(JSON.parse(fdata),100)
  const fdatao = Object.entries(fdatas)
+ 
  const maxp = fdatao.reduce((max,[_,f])=>f.price > max.price ? f : max, {price: -Infinity})
+ const maxp2 = Object.fromEntries(Object.entries(maxp).filter(([k]) => k !== "days_left"))
+ 
  const maxd = fdatao.reduce((max,[_,f])=>f.duration > max.duration ? f : max, {duration: -Infinity})
-
+ const maxd2 = Object.fromEntries(Object.entries(maxd).filter(([k]) => k !== "days_left"))
+ 
  console.log(fdatao)
  
  // group flights into chunks of 10
@@ -60,26 +65,24 @@
 <template>
 
   <Header />
-  
   <Stats :airline=airline :sourcecity=sourcecity :destcity=destcity
 	 :stops=stops :duration=duration :fdatas=fdatas
 	 :s1=s1 :s2=s2 :s3=s3 :s4=s4 :s5=s5 :ts=ts />
-  <Activity class="w-10 h-10 text-blue-200" />
-  <p class="text-4xl">Main</p>
-  
-  <div class="bg-blue-100">
-    <p class="text-ma2">the highest price and the longest duration</p>
+  <div class="bg-lightblueg-1200 rounded max-w-[60%] mx-auto">
+    
     <div class="flex justify-center items-start space-x-2 mt-4">
-      <p class="text-ma3 mb-2">this is the most expensive flight</p>
+      <ShieldQuestionMark class="w-10 h-10 text-brown4-500" />
+      <p class="text-ma4 font-roboto text-brown4-400">highest price and duration</p>
+    </div>
+    <div class="flex justify-center items-start space-x-2 mt-4">
       <ul class="flex-space-x-4">
-        <li v-for="(v,k) in maxp" :key="`p-${k}`">
-          test {{ v }}
+        <li v-for="(v,k) in maxp2" :key="`p-${k}`">
+          <p :class="[clayout.main1,'text-ma3 font-roboto']"> {{ k.replace('_',' ') }}: {{ v }}</p>
         </li>
       </ul>
-      <p class="text-2xl mb-2">this is the longest flight</p>
       <ul class="flex-space-x-4">
-        <li v-for="(v,k) in maxd" :key="`d-${k}`">
-          test {{ v }}
+        <li v-for="(v,k) in maxd2" :key="`d-${k}`">
+	  <p :class="[clayout.main1,'text-ma3 font-roboto']"> {{ k.replace('_',' ') }}: {{ v }}</p>
         </li>
       </ul>
     </div>

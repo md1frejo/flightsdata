@@ -1,6 +1,6 @@
 <script setup>
  
- import { VectorSquare } from "lucide-vue-next" 
+ import { VectorSquare,ShieldQuestionMark } from "lucide-vue-next" 
  import {clayout} from '../config/layout.js'
  import { ref, onMounted } from 'vue'
 
@@ -100,11 +100,8 @@
 </script>
 
 <template>
-  <p class="text-4xl">debug: {{ts}}</p>
-  <div class="flex space-x-6 p-4">
-
+  <div class="flex space-x-6 p-20">
     <div class="flex-1">
-      <h2 class="text-lg font-semibold mb-2">airline</h2>
       <table class="min-w-full border text-sm">
         <thead :class="[clayout.stats1,'bg-navajoWhite4g-800']">
           <tr>
@@ -124,11 +121,10 @@
     </div>
     
      <div class="flex-1">
-      <h2 class="text-lg font-semibold mb-2">Source Cities</h2>
       <table class="min-w-full border text-sm">
         <thead :class="[clayout.stats1,'bg-navajoWhite4g-800']">
             <tr>
-              <th class="px-3 py-2 text-left">City</th>
+              <th class="px-3 py-2 text-left">source city</th>
               <th class="px-3 py-2 text-left">% of flights</th>
             </tr>
         </thead>
@@ -143,11 +139,10 @@
       </div>
 
       <div class="flex-1">
-	<h2 class="text-lg font-semibold mb-2">Destination Cities</h2>
 	<table class="min-w-full border text-sm">
           <thead :class="[clayout.stats1,'bg-navajoWhite4g-800']">
             <tr>
-              <th class="px-3 py-2 text-left">City</th>
+              <th class="px-3 py-2 text-left">destination city</th>
               <th class="px-3 py-2 text-left">% of flights</th>
             </tr>
           </thead>
@@ -163,7 +158,6 @@
       </div>
 
       <div class="flex-1">
-	<h2 class="text-lg font-semibold mb-2">stops</h2>
 	<table class="min-w-full border text-sm">
           <thead :class="[clayout.stats1,'bg-navajoWhite4g-800']">
             <tr>
@@ -183,24 +177,26 @@
       </div>
   </div>
 
-  <div class="bg-blue-100 ">
-    <p class="text-4xl">average price vs duration</p>
+  <div class="bg-navajoWhite4g-800 max-w-[65%] mx-auto p-1">
+    <div class="flex justify-center items-start space-x-2 mt-4">
+      <p class="text-st2 text-brown4-400 font-gloria">duration and stops for all flights</p>
+    </div>
   </div>
-
-  <div class="max-w-[70%] mx-auto">>
+  
+  <div class="max-w-[70%] mx-auto">
+    <div class="flex items-center space-x-2 mt-4">
+      <ShieldQuestionMark class="w-10 h-10 text-redg-700" />
+      <p class="text-st1 font-roboto text-brown4-400">flight duration vs price</p>
+    </div>
     <canvas ref="canvasRef" class="w-full h-96"></canvas>
-    <div class="flex items-center space-x-2 mt-4">
-      <VectorSquare class="w-10 h-10 text-blue-200" />
-      <p class="text-4x">flight time vs price</p>
-    </div>
   </div>
 
-  <div class="max-w-[70%] mx-auto">>
-    <canvas ref="canvasRef2" class="w-full h-96"></canvas>
+  <div class="max-w-[70%] mx-auto">
     <div class="flex items-center space-x-2 mt-4">
-      <VectorSquare class="w-10 h-10 text-blue-200" />
-      <p class="text-4x">flight stops vs price</p>
+      <ShieldQuestionMark class="w-10 h-10 text-redg-700" />
+      <p class="text-st1 font-roboto text-brown4-400">flight stops vs price</p>
     </div>
+    <canvas ref="canvasRef2" class="w-full h-96"></canvas>
   </div>
 
 </template>

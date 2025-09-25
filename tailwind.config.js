@@ -10,6 +10,7 @@ export default {
               kode: ["'Kode Mono'", "monospace"], 
 	      caveat: ["Caveat", "cursive"],
 	      roboto: ["'Roboto'", "sans-serif"],  // clean UI fallback
+	      gloria: ['"Gloria Hallelujah"', 'cursive'],
 	  },
 	  fontWeight: {
 	      thin: 100,
@@ -294,15 +295,18 @@ export default {
 	      },
 	  },
 	  fontSize: {
-	      'hed1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'st1': ['25pt', { lineHeight: '1.2', fontWeight: '100', letterSpacing: '0em' }],
+	      'st2': ['25pt', { lineHeight: '1.2', fontWeight: '100', letterSpacing: '0em' }],
+	      'hed1': ['25pt', { lineHeight: '1.2', fontWeight: '100', letterSpacing: '0em' }],
 	      'air1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 
 	      'bo1': ['15pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 
 	      'c1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'ma1': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
-	      'ma2': ['40pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
-	      'ma3': ['15pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma2': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma3': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
+	      'ma4': ['25pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'gp1': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top1': ['30pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
 	      'top2': ['20pt', { lineHeight: '1.2', fontWeight: '200', letterSpacing: '0em' }],
